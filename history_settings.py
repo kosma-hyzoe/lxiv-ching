@@ -2,14 +2,20 @@
 path = 'lxivChing/history-lxiv.txt'
 
 
-def write(query, output, changing_lines, txt_history):
+def print_write(query, output, lines_to_read, txt_history, commentary):
+    print(
+        f"Query: {query}" + '\n' +
+        f"Result: {output}" + '\n' +
+        f"Lines_to_read: {lines_to_read}" + '\n' +
+        f'Commentary: {commentary}'
+    )
+
     if txt_history:
-        print('ye')
-        with open(path, 'a', encoding='utf-8') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             f.write(
                 query + '\n' +
                 output + '\n' +
-                changing_lines
+                lines_to_read
             )
             f.write('\n' * 2)
 
