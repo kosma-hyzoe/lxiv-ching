@@ -4,6 +4,7 @@ import argparse
 
 from db import hexes, comments_dict
 
+# specify the path here:
 path = "lxivChing/history-lxiv.txt"
 
 def __main__():
@@ -38,17 +39,22 @@ def __main__():
     time = datetime.now().isoformat(timespec='minutes')
     result = f"{origin_hexagram}->{trans_hexagram}"
 
-    output = f"""
-        Time:
-            {time}
-        Query:
-             \"{args.query}\"     
-        Result:
-            {result}
-        Commentary:    
-            {comments}"""
+    output = f"""\
+Time:
+    {time}
+Query:
+     \"{args.query}\"     
+Result:
+    {result}
+Comments:    
+    {comments}"""
+    output = f"Time:\n\t{time}\n" \
+             f"Query: \n\t{args.query}\n" \
+             f"Result:\n\t{result}\n" \
+             f"Comments:\n\t{comments}"
     if len(lines_to_read) > 0:
-        output += f" Lines to read: {str(lines_to_read_rep)}"
+        output += f"\n\tLines to read: {str(lines_to_read_rep)}"
+    output += '\n'
 
     print(output)
 
