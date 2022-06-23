@@ -34,10 +34,6 @@ Result:
 Comments:
         Original hexagram's changing lines apply. the uppermost line of the two is most important.
         Lines to read: 2, 4
-
-kosma@btrbook:~/Projects$ python3.10 lxivChing "Demo query"
-
-
 ```
 
 
