@@ -1,4 +1,14 @@
-from collections import namedtuple
+comments_dict = {
+    0: "Read both hexagrams' basic text.",
+    1: "Original hexagram's changing line applies.",
+    2: "Original hexagram's changing lines apply. the uppermost line of the two is most important.",
+    3: "Original hexagram's changing lines apply. the middle line is most important.",
+    4: "Transformed hexagram's lower, non-changing line applies.",
+    5: "Transformed hexagram's non-changing line applies.",
+    6: "The first hexagram's situation is entirely past or on the brink of change, the second"
+       " Hexagram is more important, take the judgment.",
+    "special": "Read the special commentary."
+}
 
 hexes = {
     '111111': 1, '000000': 2,
@@ -20,8 +30,8 @@ hexes = {
     '001111': 33, '111100': 34,
     '000101': 35, '101000': 36,
     '101011': 37, '110101': 38,
-    '001010': 39, '110001': 40,
-    '100011': 41, '110001': 42,
+    '001010': 39, '010100': 40,
+    '110001': 41, '100011': 42,
     '111110': 43, '011111': 44,
     '000110': 45, '011000': 46,
     '010110': 47, '011010': 48,

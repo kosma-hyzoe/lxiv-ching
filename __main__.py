@@ -1,98 +1,34 @@
 from datetime import datetime
-import random as r
+from random import choice
 import argparse
-import readline
 
-from hexes import hexes
-import history_settings as hs
+from db import hexes, comments_dict
 
-txt_history = True
+path = "lxivChing/history-lxiv.txt"
 
-parser = argparse.ArgumentParser()  # description=''
-
-parser.add_argument('query', type=str)
-parser.add_argument('--nh', help="don't write to history.txt", action='store_false', default=True)
-# parser.add_argument('--dm', help="specify divination method", choices=['stalks', 'c3'] )
-
-args = parser.parse_args()
-query = args.query
-
-
-def evaluation(lines, origin_code):
-    to_read = []
-    how_many_lines = len(lines)
-    match how_many_lines:
-        case 0:
-            to_read = '...'
-            commentary = '...'
-            return to_read, commentary
-        case 1:
-            to_read = lines
-            commentary = "original hexagram's changing line applies."
-            return to_read, commentary
-        case 2:
-            to_read = lines
-            commentary = "original hexagram's changing lines apply. the uppermost line of the two is most important"
-            return to_read, commentary
-        case 3:
-            to_read = lines
-            commentary = "original hexagram's changing lines apply. the middle line is most important"
-            return to_read, commentary
-        case 4:
-            to_read = min(list({1, 2, 3, 4, 5, 6} - set(lines)))
-            commentary = "transformed hexagram's lower, non-changing line applies."
-            return to_read, commentary
-        case 5:
-            to_read = sorted(list({1, 2, 3, 4, 5, 6} - set(lines)))
-            commentary = "transformed hexagram's non-changing line applies."
-            return to_read, commentary
-        case 6:
-            if origin_hexagram_code == "111111" or origin_hexagram_code == '000000':
-                to_read = "special"
-                commentary = "read the special statement"
-                return to_read, commentary
-            to_read = {}
-            commentary ="the first hexagram's situation is entirely past or on the brink of change, the second" \
-                        " hexagram is more important, take the judgment"
-            return to_read, commentary
-
-
-
-if __name__ == '__main__':
-    try:
-        readline.remove_history_item(1)
-    except ValueError:
-        pass
-
+def __main__():
     coin_values = ''
-    origin_hexagram_code = ''
-    trans_hexagram_code = ''
-    for line in range(1, 7):
-        line = r.choice([3, 2]) + r.choice([3, 2]) + r.choice([3, 2])
-        coin_values += str(line)
 
-    changing_lines = []
-    for i in range(0, len(coin_values)):
-        match coin_values[i]:
-            case '6':
-                origin_hexagram_code += '0'
-                trans_hexagram_code += '1'
-                changing_lines.append(i + 1)
-            case '7':
-                origin_hexagram_code += '1'
-                trans_hexagram_code += '1'
-            case '8':
-                origin_hexagram_code += '0'
-                trans_hexagram_code += '0'
-            case '9':
-                origin_hexagram_code += '1'
-                trans_hexagram_code += '0'
-                changing_lines.append(i + 1)
+    parser = argparse.ArgumentParser()  # description=''
+    parser.add_argument('query', type=str)
+    parser.add_argument('--nohistory', help="don't write to history.txt", action='store_true', default=False)
+    parser.add_argument('--debug', help="enter debug mode", action='store_true', default=False)
+    args = parser.parse_args()
 
-    origin_hexagram = hexes[origin_hexagram_code]
-    trans_hexagram = hexes[trans_hexagram_code]
+    if args.debug:
+        origin_hexagram = int(args.query[0] + args.query[1])
+        trans_hexagram = int(args.query[2] + args.query[3])
+        origin_hexagram_code = {value: key for (key, value) in hexes.items()}[origin_hexagram]
+        trans_hexagram_code = {value: key for (key, value) in hexes.items()}[trans_hexagram]
+        changing_lines = []
+    else:
+        for line in range(1, 7):
+            coin_values += str(choice([3, 2]) + choice([3, 2]) + choice([3, 2]))
+        origin_hexagram_code, trans_hexagram_code, changing_lines = lines_and_hex_decoder(coin_values)
+        origin_hexagram = hexes[origin_hexagram_code]
+        trans_hexagram = hexes[trans_hexagram_code]
 
-    lines_to_read, commentary = evaluation(changing_lines, origin_hexagram_code)
+    lines_to_read, comments = evaluation(changing_lines, origin_hexagram)
 
     lines_to_read_rep = ''
     for line in lines_to_read:
@@ -100,6 +36,75 @@ if __name__ == '__main__':
     lines_to_read_rep = lines_to_read_rep[:-2]
 
     time = datetime.now().isoformat(timespec='minutes')
-    output = f"{time}:\n{origin_hexagram}->{trans_hexagram}"
+    result = f"{origin_hexagram}->{trans_hexagram}"
 
-    hs.print_write(query, output, lines_to_read_rep, txt_history, commentary)
+    output = f"""
+        Time:
+            {time}
+        Query:
+             \"{args.query}\"     
+        Result:
+            {result}
+        Commentary:    
+            {comments}"""
+    if len(lines_to_read) > 0:
+        output += f" Lines to read: {str(lines_to_read_rep)}"
+
+    print(output)
+
+    if not args.nohistory:
+        with open(path, 'a', encoding='utf-8') as f:
+            f.write(output)
+
+    if args.debug:
+        print(f"{origin_hexagram_code} -> {trans_hexagram_code}")
+
+
+def lines_and_hex_decoder(coins):
+    origin_code = ''
+    trans_code = ''
+    changing_lines = []
+    for i, v in enumerate(coins):
+        match v:
+            case '6':
+                origin_code += '0'
+                trans_code += '1'
+                changing_lines.append(i + 1)
+            case '7':
+                origin_code += '1'
+                trans_code += '1'
+            case '8':
+                origin_code += '0'
+                trans_code += '0'
+            case '9':
+                origin_code += '1'
+                trans_code += '0'
+                changing_lines.append(i + 1)
+    return origin_code, trans_code, changing_lines
+
+
+def evaluation(changing_lines, origin_hexagram) -> (list, str):
+    how_many_lines = len(changing_lines)
+
+    match how_many_lines:
+        case 4:
+            lines_to_read = min(list({1, 2, 3, 4, 5, 6} - set(changing_lines)))
+            comments = comments_dict[4]
+        case 5:
+            lines_to_read = list({1, 2, 3, 4, 5, 6} - set(changing_lines))
+            comments = comments_dict[5]
+        case 6:
+            if origin_hexagram == 1 or origin_hexagram == 2:
+                lines_to_read = None
+                comments = comments_dict["special"]
+            else:
+                lines_to_read = None
+                comments = comments_dict[6]
+        case _:
+            lines_to_read = changing_lines
+            comments = comments_dict[how_many_lines]
+    return lines_to_read, comments
+
+
+if __name__ == '__main__':
+    __main__()
