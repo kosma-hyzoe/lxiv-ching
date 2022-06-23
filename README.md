@@ -1,5 +1,5 @@
 # __lxivChing__
-## _the minified, terminal-friendldy I Ching program_
+## _the minified, terminal-friendly I Ching program_
 ---
 
 ### What is this I Ching thing?
