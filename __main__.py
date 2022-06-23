@@ -7,6 +7,7 @@ from db import hexes, comments_dict
 # specify the path here:
 path = "lxivChing/history-lxiv.txt"
 
+
 def __main__():
     coin_values = ''
 
@@ -39,15 +40,6 @@ def __main__():
     time = datetime.now().isoformat(timespec='minutes')
     result = f"{origin_hexagram}->{trans_hexagram}"
 
-    output = f"""\
-Time:
-    {time}
-Query:
-     \"{args.query}\"     
-Result:
-    {result}
-Comments:    
-    {comments}"""
     output = f"Time:\n\t{time}\n" \
              f"Query: \n\t{args.query}\n" \
              f"Result:\n\t{result}\n" \

@@ -20,7 +20,7 @@
       * --nohistory - dont write to history .txt file
       * --debug - enter debug mode(still in development)
 
-*__The standard version uses the three coin divination method. Yarrow stalks method possibly coming soon__* 
+*__This version uses the three coin divination method. Yarrow stalks method possibly coming soon__* 
 
 ### Demo:
 ```
