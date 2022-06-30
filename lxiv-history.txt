@@ -1,0 +1,49 @@
+
+Time:
+	2022-06-30T17:27
+Query: 
+	xd
+Result:
+	54->55
+Comments:
+	Original hexagram's changing lines apply. the uppermost line of the two is most important.
+	Lines to read: 2, 3
+
+Time:
+	2022-06-30T17:42
+Query: 
+	3
+Result:
+	16->16
+Comments:
+	Read the original hexagram's basic text.
+
+Time:
+	2022-06-30T17:49
+Query: 
+	d
+Result:
+	12->53
+Comments:
+	Original hexagram's changing lines apply. the uppermost line of the two is most important.
+	Lines to read: 3, 4
+
+Time:
+	2022-06-30T17:49
+Query: 
+	xd
+Result:
+	37->13
+Comments:
+	Original hexagram's changing line applies.
+	Lines to read: 4
+
+Time:
+	2022-06-30T17:54
+Query: 
+	dx
+Result:
+	17->51
+Comments:
+	Original hexagram's changing line applies.
+	Lines to read: 5

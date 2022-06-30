@@ -1,12 +1,12 @@
 comments_dict = {
-    0: "Read both hexagrams' basic text.",
+    0: "Read the original hexagram's basic text.",
     1: "Original hexagram's changing line applies.",
     2: "Original hexagram's changing lines apply. the uppermost line of the two is most important.",
     3: "Original hexagram's changing lines apply. the middle line is most important.",
     4: "Transformed hexagram's lower, non-changing line applies.",
     5: "Transformed hexagram's non-changing line applies.",
     6: "The first hexagram's situation is entirely past or on the brink of change, the second"
-       " Hexagram is more important, take the judgment.",
+       "Hexagram is more important, take the judgment.",
     "special": "Read the special commentary."
 }
 

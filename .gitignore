@@ -1,7 +1,6 @@
-.directory
 .idea
-history-lxiv.txt
-GBCh.md
+misc/history-lxiv.txt
+misc/GBCh.md
 GBCh.md.backup
 Pipfile
 Pipfile.lock
