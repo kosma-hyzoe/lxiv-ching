@@ -1,4 +1,4 @@
-# __lxivChing__
+# __lxiv-ching__
 ## _the minified, terminal-friendly I Ching program_
 
 ### What is this I Ching thing?
@@ -10,13 +10,11 @@
 
 
 ### Usage:
-1. make sure (Python 3.10+)[https://www.python.org/] is installed
-2. change directory into the package path: `cd /path/to/lxivChing`
-   * you might also want to change the default history file directory modifying a line in the \_\_main\_\_.py file
-   * 
-3. run `python3.10 lxivChing {optional_flags}` where:
+1. make sure (Python 3.10+)[https://www.python.org/] and pip is installed
+2. install via `pip install lxiv-ching`
+3. run `python3.10 -m lxiv-ching {optional_flags}` where:
    * _{optional flags}_:
-      * --nohistory - dont write to history .txt file
+      * --nohistory - dont write to history .txt file(the history file needs fixing since updating to pypi, will do soon)
       * --debug - enter debug mode(still in development)
 4. the program will prompt a query. write it down or leave blank and press the 'enter' key.
 
@@ -24,7 +22,7 @@
 
 ### Demo:
 ```
-$ python3.10 lxivChing
+$ python3.10 -m lxiv-ching
 Query: Demo query
 
 Time:
