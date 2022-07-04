@@ -1,0 +1,32 @@
+
+Time:
+	2022-07-04T17:09
+Result:
+	3->2
+Comments:Original hexagram's changing lines apply. the uppermost line of the two
+	is most important.
+	Lines to read: 1, 5
+
+Time:
+	2022-07-04T17:09
+Result:
+	49->43
+Comments:
+	Original hexagram's changing line applies.
+	Lines to read: 2
+
+Time:
+	2022-07-04T17:10
+Result:
+	31->35
+Comments:
+	Original hexagram's changing lines apply. the middle line is most
+	important.
+	Lines to read: 3, 5, 6
+Time:
+	2022-07-04T17:10
+Result:
+	26->22
+Comments:
+	Original hexagram's changing line applies.
+	Lines to read: 2

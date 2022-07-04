@@ -44,7 +44,7 @@ def __main__():
         '101010': 63, '010101': 64,
     }
 
-    query = wrap(input("Query: "), 71)
+    query = wrap(input("Query: \n\t"), 71)
     if query == '':
         query = "..."
     coin_values = ''
@@ -77,8 +77,7 @@ def __main__():
     time = datetime.now().isoformat(timespec='minutes')
     result = f"{origin_hexagram}->{trans_hexagram}"
 
-    output = f"\nTime:\n\t{time}\n" \
-             f"Query: \n\t{query}\n" \
+    output = f"Time:\n\t{time}\n" \
              f"Result:\n\t{result}\n" \
              f"Comments:\n\t{comments}"
     if len(lines_to_read) > 0:
@@ -91,8 +90,8 @@ def __main__():
         try:
             with open(path, 'a', encoding='utf-8') as f:
                 f.write(output)
-        except FileNotFoundError:
-            with open("../history-lxiv.txt", 'a', encoding='utf-8') as f:
+        except (FileNotFoundError, PermissionError):
+            with open("./history-lxiv.txt", 'w', encoding='utf-8') as f:
                 f.write(output)
 
     if args.debug:
@@ -159,7 +158,7 @@ def evaluation(changing_lines, origin_hexagram) -> (list, str):
         case _:
             lines_to_read = changing_lines
             comments = comments_dict[how_many_lines]
-    return lines_to_read, comments
+    return lines_to_read, wrap(comments, 71)
 
 
 if __name__ == "__main__":
